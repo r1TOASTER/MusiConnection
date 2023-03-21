@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/background1"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome to"
+        android:layout_gravity="center"
+        android:layout_marginTop="25dp"
+        android:textSize="35sp"
+        android:fontFamily="@font/bold"
+        android:textColor="@color/white"
+        android:id="@+id/welcomeTextRegisterPage"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="The Register Page"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:textSize="35sp"
+        android:fontFamily="@font/bold"
+        android:textColor="@color/white"
+        android:id="@+id/musiconnectionTextRegisterPage"/>
+
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:fontFamily="@font/bold"
+        android:hint="           Enter mail"
+        android:backgroundTint="@color/white"
+        android:background="@drawable/round_edit_text"
+        android:textColorHint="@color/black"
+        android:layout_marginTop="45dp"
+        android:id="@+id/enterMailRegisterPage"
+        />
+
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:fontFamily="@font/bold"
+        android:hint="       Enter username"
+        android:backgroundTint="@color/white"
+        android:background="@drawable/round_edit_text"
+        android:textColorHint="@color/black"
+        android:layout_marginTop="15dp"
+        android:id="@+id/enterUsernameRegisterPage" />
+
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:fontFamily="@font/bold"
+        android:hint="       Enter password"
+        android:backgroundTint="@color/white"
+        android:background="@drawable/round_edit_text"
+        android:textColorHint="@color/black"
+        android:layout_marginTop="15dp"
+        android:id="@+id/enterPasswordRegisterPage" />
+
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:fontFamily="@font/bold"
+        android:hint=" Enter password again"
+        android:backgroundTint="@color/white"
+        android:background="@drawable/round_edit_text"
+        android:textColorHint="@color/black"
+        android:layout_marginTop="15dp"
+        android:id="@+id/enterPasswordAgainRegisterPage" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/checkbox_guitar"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:onClick="onCheckboxClicked"
+            android:text="Guitar"
+            android:textSize="20dp"
+            android:textColor="@color/white"
+            tools:ignore="OnClick" />
+
+        <CheckBox
+            android:id="@+id/checkbox_piano"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:onClick="onCheckboxClicked"
+            android:text="Piano"
+            android:textSize="20dp"
+            android:textColor="@color/white"
+            tools:ignore="OnClick" />
+
+        <CheckBox
+            android:id="@+id/checkbox_bass"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:onClick="onCheckboxClicked"
+            android:text="Bass"
+            android:textSize="20dp"
+            android:textColor="@color/white"
+            tools:ignore="OnClick" />
+
+        <CheckBox
+            android:id="@+id/checkbox_drums"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:onClick="onCheckboxClicked"
+            android:text="Drums"
+            android:textSize="20dp"
+            android:textColor="@color/white"
+            tools:ignore="OnClick" />
+    </LinearLayout>
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:fontFamily="@font/bold"
+        android:text="Submit"
+        app:backgroundTint="@color/white"
+        android:background="@drawable/button_border"
+        android:textColor="@color/black"
+        android:layout_marginTop="30dp"
+        android:id="@+id/registerToMainPage"/>
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:fontFamily="@font/bold"
+        android:text="Forgot password"
+        app:backgroundTint="@color/white"
+        android:background="@drawable/button_border"
+        android:textColor="@color/black"
+        android:layout_marginTop="10dp"
+        android:id="@+id/registerToForgotPassword"/>
+
+</LinearLayout>

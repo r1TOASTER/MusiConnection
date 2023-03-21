@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/background1"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome to"
+        android:layout_gravity="center"
+        android:layout_marginTop="90dp"
+        android:textSize="35sp"
+        android:fontFamily="@font/bold"
+        android:textColor="@color/white"
+        android:id="@+id/welcomeTextFirstPage"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MusiConnection"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:textSize="35sp"
+        android:fontFamily="@font/bold"
+        android:textColor="@color/white"
+        android:id="@+id/musiconnectionTextFirstPage"/>
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="70dp"
+        android:layout_gravity="center"
+        android:fontFamily="@font/bold"
+        android:text="Login Page"
+        app:backgroundTint="@color/white"
+        android:background="@drawable/button_border"
+        android:textColor="@color/black"
+        android:layout_marginTop="45dp"
+        android:id="@+id/firstToLoginPage"/>
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="70dp"
+        android:layout_gravity="center"
+        android:fontFamily="@font/bold"
+        android:text="Register Page"
+        app:backgroundTint="@color/white"
+        android:background="@drawable/button_border"
+        android:textColor="@color/black"
+        android:layout_marginTop="15dp"
+        android:id="@+id/firstToRegisterPage"/>
+
+</LinearLayout>

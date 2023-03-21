@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background1"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/textEditAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="90dp"
+        android:text="Edit Account"
+        android:textColor="@color/white"
+        android:textSize="40sp" />
+
+    <EditText
+        android:id="@+id/newMailEdit"
+        android:layout_width="200dp"
+        android:layout_height="70dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:hint="New Mail"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        app:backgroundTint="@color/white" />
+
+    <EditText
+        android:id="@+id/newUsernameEdit"
+        android:layout_width="200dp"
+        android:layout_height="70dp"
+        android:layout_gravity="center"
+        android:hint="New Username"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        app:backgroundTint="@color/white" />
+
+    <EditText
+        android:id="@+id/newPasswordEdit"
+        android:layout_width="200dp"
+        android:layout_height="70dp"
+        android:layout_gravity="center"
+        android:hint="New Password"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        app:backgroundTint="@color/white" />
+
+    <EditText
+        android:id="@+id/newRadiusEdit"
+        android:layout_width="200dp"
+        android:layout_height="70dp"
+        android:layout_gravity="center"
+        android:hint="New Radius"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        app:backgroundTint="@color/white" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/checkbox_guitarEdit"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:onClick="onCheckboxClicked"
+            android:text="Guitar"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            tools:ignore="OnClick" />
+
+        <CheckBox
+            android:id="@+id/checkbox_pianoEdit"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:onClick="onCheckboxClicked"
+            android:text="Piano"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            tools:ignore="OnClick" />
+
+        <CheckBox
+            android:id="@+id/checkbox_bassEdit"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:onClick="onCheckboxClicked"
+            android:text="Bass"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            tools:ignore="OnClick" />
+
+        <CheckBox
+            android:id="@+id/checkbox_drumsEdit"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:onClick="onCheckboxClicked"
+            android:text="Drums"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            tools:ignore="OnClick" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/saveEditAccount"
+        android:layout_width="200dp"
+        android:layout_height="70dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/button_border"
+        android:fontFamily="@font/bold"
+        android:text="Save"
+        android:textColor="@color/black"
+        app:backgroundTint="@color/white" />
+
+    <Button
+        android:id="@+id/goBackButton"
+        android:layout_width="200dp"
+        android:layout_height="70dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/button_border"
+        android:fontFamily="@font/bold"
+        android:text="Go Back Without saving"
+        android:textColor="@color/black"
+        app:backgroundTint="@color/white" />
+
+
+</LinearLayout>

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/requesterText"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:textSize="25sp"
+        android:text = "The requester: "
+        android:gravity = "center"
+        android:textColor = "@color/black"
+        />
+
+    <TextView
+        android:id="@+id/requesterName"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/requesterMail"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:textSize="16sp" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/requesterGuitar"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/requesterPiano"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/requesterBass"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/requesterDrums"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:textSize="16sp" />
+
+        </TableRow>
+    </TableLayout>
+
+    <TextView
+        android:id="@+id/bandText"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:textSize="25sp"
+        android:text = "The band: "
+        android:gravity = "center"
+        android:textColor = "@color/black"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:textSize="20dp"
+        android:id="@+id/nameOfTheBand"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/white"
+        android:textColorHint="@color/black"
+        android:id="@+id/locationOfTheBandInAddress"
+        />
+
+    <ListView
+        android:layout_marginTop="30dp"
+        android:id="@+id/lvMembersOfBandRequest"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        />
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:hint="Approve"
+        android:backgroundTint="@color/white"
+        android:textColorHint="@color/black"
+        android:id="@+id/approveRequester"
+        />
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:hint="Reject"
+        android:backgroundTint="@color/white"
+        android:textColorHint="@color/black"
+        android:id="@+id/rejectRequester"
+        />
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:hint="Exit without approving / rejecting"
+        android:backgroundTint="@color/white"
+        android:textColorHint="@color/black"
+        android:id="@+id/exit"
+        />
+</LinearLayout>

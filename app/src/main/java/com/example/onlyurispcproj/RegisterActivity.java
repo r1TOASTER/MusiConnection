@@ -1,0 +1,146 @@
+package com.example.onlyurispcproj;
+
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.concurrent.ExecutionException;
+
+public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
+    TextView welcome, registerpageText;
+    EditText mail, password, username, passwordvalidate;
+    Button submit, forgotPassword;
+    User user = new User("", "", "");
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.register_page);
+
+        //TextView
+        welcome = (TextView) findViewById(R.id.welcomeTextRegisterPage);
+        registerpageText = (TextView) findViewById(R.id.musiconnectionTextRegisterPage);
+
+        //Button
+        submit = (Button) findViewById(R.id.registerToMainPage);
+        forgotPassword = (Button) findViewById(R.id.registerToForgotPassword);
+
+        //EditText
+        mail = (EditText) findViewById(R.id.enterMailRegisterPage);
+        password = (EditText) findViewById(R.id.enterPasswordRegisterPage);
+        passwordvalidate = (EditText) findViewById(R.id.enterPasswordAgainRegisterPage);
+        username = (EditText) findViewById(R.id.enterUsernameRegisterPage);
+
+        submit.setOnClickListener(this);
+        forgotPassword.setOnClickListener(this);
+    }
+
+    public boolean isValidEmailAddress(String email) {
+        String ePattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
+        java.util.regex.Pattern p = java.util.regex.Pattern.compile(ePattern);
+        java.util.regex.Matcher m = p.matcher(email);
+        return m.matches();
+    }
+
+    public String dbInteract(String message) {
+        String response;
+        try {
+            Sockets dbLinker = new Sockets();
+            response = dbLinker.execute(message).get();
+        } catch (ExecutionException | InterruptedException e) {
+            response = "Failed";
+            e.printStackTrace();
+        }
+        return response;
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view == submit) {
+
+            String mailStr = mail.getText().toString();
+            String passwordStr = password.getText().toString();
+            String usernameStr = username.getText().toString();
+            String passwordValitadeStr = passwordvalidate.getText().toString();
+
+            if (!mailStr.equals("") && !passwordStr.equals("") && !usernameStr.equals("") && passwordStr.equals(passwordValitadeStr)){
+                if (!isValidEmailAddress(mailStr)){
+                    Toast.makeText(this, "Please Enter a Valid Mail", Toast.LENGTH_LONG).show();
+                }
+                else if(!isValidPassword(passwordStr)){
+                    Toast.makeText(this, "Please Enter a Password With Nothing But Digits and Letters", Toast.LENGTH_LONG).show();
+                }
+                else {
+                    if (dbInteract("searchmail users " + mailStr).equals("Failed")) { // There is no such mail in user
+
+                        user.setName(usernameStr);
+                        user.setMail(mailStr);
+                        user.setPassword(passwordStr);
+                        //create new user and add him to the data base
+                        dbInteract("add users " + user.toString());
+
+                        // Storing data into SharedPreferences
+                        SharedPreferences sharedPreferences = getSharedPreferences("currentUser",MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("UserMail", user.getMail());
+                        editor.apply();
+
+                        Intent intent = new Intent(RegisterActivity.this, MainScreenApp.class);
+                        startActivity(intent);
+                    }
+                    else {
+                        Toast.makeText(this, "This mail is already in use", Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+            else if (!passwordStr.equals(passwordValitadeStr)){
+                Toast.makeText(this, "Please Enter The Same Password", Toast.LENGTH_LONG).show();
+            }
+            else {
+                Toast.makeText(this, "Please Enter Valid Mail, Username, and Passwords", Toast.LENGTH_LONG).show();
+            }
+        } else if (view == forgotPassword) {
+            Intent intent = new Intent(RegisterActivity.this, ForgotPassword.class);
+            startActivity(intent);
+        }
+    }
+
+    @SuppressLint("NonConstantResourceId")
+    public void onCheckboxClicked(View view) {
+        // Is the view now checked?
+        boolean checked = ((CheckBox) view).isChecked();
+
+        // Check which checkbox was clicked
+        switch(view.getId()) {
+            case R.id.checkbox_guitar:
+                user.setInstrument(0, checked);
+                break;
+            case R.id.checkbox_piano:
+                user.setInstrument(1, checked);
+                break;
+            case R.id.checkbox_bass:
+                user.setInstrument(2, checked);
+                break;
+            case R.id.checkbox_drums:
+                user.setInstrument(3, checked);
+                break;
+        }
+    }
+
+    public boolean isValidPassword(String password){
+        for (int i = 0; i < password.length(); ++i){
+            if (!Character.isAlphabetic(password.charAt(i)) && !Character.isDigit(password.charAt(i)))
+                return false;
+        }
+        return true;
+    }
+}

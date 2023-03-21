@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background1"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Settings"
+        android:textSize="40sp"
+        android:layout_gravity = "center_horizontal"
+        android:layout_marginTop= "90dp"
+        android:fontFamily="@font/bold"
+        android:textColor="@color/white"
+        android:id="@+id/textSettingsActivity"/>
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="70dp"
+        android:layout_gravity="center"
+        android:fontFamily="@font/bold"
+        android:layout_marginTop = "-90dp"
+        android:text="Log out"
+        app:backgroundTint="@color/white"
+        android:background="@drawable/button_border"
+        android:textColor="@color/black"
+        android:id="@+id/logOutButton"
+        />
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="70dp"
+        android:layout_gravity="center"
+        android:fontFamily="@font/bold"
+        android:text="Delete account"
+        app:backgroundTint="@color/white"
+        android:background="@drawable/button_border"
+        android:textColor="@color/black"
+        android:id="@+id/deleteAccountButton"/>
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="70dp"
+        android:layout_gravity="center"
+        android:fontFamily="@font/bold"
+        android:text="Change account details"
+        app:backgroundTint="@color/white"
+        android:background="@drawable/button_border"
+        android:textColor="@color/black"
+        android:layout_marginTop="90dp"
+        android:id="@+id/toDetailsButton"/>
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="70dp"
+        android:layout_gravity="center"
+        android:fontFamily="@font/bold"
+        android:text="forgot password"
+        app:backgroundTint="@color/white"
+        android:background="@drawable/button_border"
+        android:textColor="@color/black"
+        android:layout_marginTop="180dp"
+        android:id="@+id/forgotPasswordButton"/>
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="70dp"
+        android:layout_gravity="center"
+        android:fontFamily="@font/bold"
+        android:text="Go Back"
+        app:backgroundTint="@color/white"
+        android:background="@drawable/button_border"
+        android:textColor="@color/black"
+        android:layout_marginTop="270dp"
+        android:id="@+id/goBackButton"/>
+
+
+</FrameLayout>

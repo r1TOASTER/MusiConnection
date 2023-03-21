@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="45dp"
+        android:textSize="20dp"
+        android:textColor = "@color/black"
+        android:text = "Current Band Members:"
+        android:id="@+id/titleAddMembers"
+        />
+
+    <ListView
+        android:id="@+id/lvMembersInAddDialog"
+        android:layout_width="match_parent"
+        android:layout_height="308dp"
+        android:layout_marginTop="45dp" />
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="70dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:hint="Add Member"
+        android:backgroundTint="@color/white"
+        android:textColorHint="@color/black"
+        android:id = "@+id/addNewMemberButton"
+        />
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="70dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:hint="Exit and Save"
+        android:backgroundTint="@color/white"
+        android:textColorHint="@color/black"
+        android:id="@+id/saveNewMembersButton"
+        />
+</LinearLayout>
