@@ -18,7 +18,7 @@ import java.util.concurrent.ExecutionException;
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
     TextView welcome, registerpageText;
     EditText mail, password, username, passwordvalidate;
-    Button submit, forgotPassword;
+    Button submit, forgotPassword, toLoginPage;
     User user = new User("", "", "");
 
     @Override
@@ -33,6 +33,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         //Button
         submit = (Button) findViewById(R.id.registerToMainPage);
         forgotPassword = (Button) findViewById(R.id.registerToForgotPassword);
+        toLoginPage = (Button) findViewById(R.id.registerToLoginPage);
 
         //EditText
         mail = (EditText) findViewById(R.id.enterMailRegisterPage);
@@ -41,6 +42,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         username = (EditText) findViewById(R.id.enterUsernameRegisterPage);
 
         submit.setOnClickListener(this);
+        toLoginPage.setOnClickListener(this);
         forgotPassword.setOnClickListener(this);
     }
 
@@ -111,6 +113,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         } else if (view == forgotPassword) {
             Intent intent = new Intent(RegisterActivity.this, ForgotPassword.class);
             startActivity(intent);
+        } else if (view == toLoginPage) {
+            Intent intent1 = new Intent(RegisterActivity.this, LoginActivity.class);
+            startActivity(intent1);
         }
     }
 

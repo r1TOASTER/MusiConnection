@@ -14,7 +14,6 @@
         android:textSize="40sp"
         android:layout_gravity = "center_horizontal"
         android:layout_marginTop= "90dp"
-        android:fontFamily="@font/bold"
         android:textColor="@color/white"
         android:id="@+id/textSettingsActivity"/>
 
@@ -22,7 +21,6 @@
         android:layout_width="200dp"
         android:layout_height="70dp"
         android:layout_gravity="center"
-        android:fontFamily="@font/bold"
         android:layout_marginTop = "-90dp"
         android:text="Log out"
         app:backgroundTint="@color/white"
@@ -35,7 +33,6 @@
         android:layout_width="200dp"
         android:layout_height="70dp"
         android:layout_gravity="center"
-        android:fontFamily="@font/bold"
         android:text="Delete account"
         app:backgroundTint="@color/white"
         android:background="@drawable/button_border"
@@ -46,7 +43,6 @@
         android:layout_width="200dp"
         android:layout_height="70dp"
         android:layout_gravity="center"
-        android:fontFamily="@font/bold"
         android:text="Change account details"
         app:backgroundTint="@color/white"
         android:background="@drawable/button_border"
@@ -55,22 +51,20 @@
         android:id="@+id/toDetailsButton"/>
 
     <Button
+        android:id="@+id/forgotPasswordButton"
         android:layout_width="200dp"
         android:layout_height="70dp"
         android:layout_gravity="center"
-        android:fontFamily="@font/bold"
-        android:text="forgot password"
-        app:backgroundTint="@color/white"
-        android:background="@drawable/button_border"
-        android:textColor="@color/black"
         android:layout_marginTop="180dp"
-        android:id="@+id/forgotPasswordButton"/>
+        android:background="@drawable/button_border"
+        android:text="forgot password"
+        android:textColor="@color/black"
+        app:backgroundTint="@color/white" />
 
     <Button
         android:layout_width="200dp"
         android:layout_height="70dp"
         android:layout_gravity="center"
-        android:fontFamily="@font/bold"
         android:text="Go Back"
         app:backgroundTint="@color/white"
         android:background="@drawable/button_border"

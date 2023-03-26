@@ -15,7 +15,6 @@
         android:layout_gravity="center"
         android:layout_marginTop="90dp"
         android:textSize="35sp"
-        android:fontFamily="@font/bold"
         android:textColor="@color/white"
         android:id="@+id/welcomeTextLoginPage"/>
 
@@ -26,7 +25,6 @@
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:textSize="35sp"
-        android:fontFamily="@font/bold"
         android:textColor="@color/white"
         android:id="@+id/musiconnectionTextLoginPage"/>
 
@@ -34,7 +32,6 @@
         android:layout_width="200dp"
         android:layout_height="50dp"
         android:layout_gravity="center"
-        android:fontFamily="@font/bold"
         android:hint="      Enter your mail"
         android:backgroundTint="@color/white"
         android:background="@drawable/round_edit_text"
@@ -47,7 +44,6 @@
         android:layout_width="200dp"
         android:layout_height="50dp"
         android:layout_gravity="center"
-        android:fontFamily="@font/bold"
         android:hint="  Enter your password"
         android:backgroundTint="@color/white"
         android:background="@drawable/round_edit_text"
@@ -59,7 +55,6 @@
         android:layout_width="200dp"
         android:layout_height="50dp"
         android:layout_gravity="center"
-        android:fontFamily="@font/bold"
         android:text="Submit"
         app:backgroundTint="@color/white"
         android:background="@drawable/button_border"
@@ -71,7 +66,6 @@
         android:layout_width="200dp"
         android:layout_height="50dp"
         android:layout_gravity="center"
-        android:fontFamily="@font/bold"
         android:text="Forgot Password"
         app:backgroundTint="@color/white"
         android:background="@drawable/button_border"
@@ -83,7 +77,6 @@
         android:layout_width="200dp"
         android:layout_height="50dp"
         android:layout_gravity="center"
-        android:fontFamily="@font/bold"
         android:text="Register Page"
         app:backgroundTint="@color/white"
         android:background="@drawable/button_border"

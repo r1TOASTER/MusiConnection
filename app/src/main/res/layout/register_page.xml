@@ -15,7 +15,6 @@
         android:layout_gravity="center"
         android:layout_marginTop="25dp"
         android:textSize="35sp"
-        android:fontFamily="@font/bold"
         android:textColor="@color/white"
         android:id="@+id/welcomeTextRegisterPage"/>
 
@@ -26,7 +25,6 @@
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:textSize="35sp"
-        android:fontFamily="@font/bold"
         android:textColor="@color/white"
         android:id="@+id/musiconnectionTextRegisterPage"/>
 
@@ -34,7 +32,6 @@
         android:layout_width="200dp"
         android:layout_height="50dp"
         android:layout_gravity="center"
-        android:fontFamily="@font/bold"
         android:hint="           Enter mail"
         android:backgroundTint="@color/white"
         android:background="@drawable/round_edit_text"
@@ -47,7 +44,6 @@
         android:layout_width="200dp"
         android:layout_height="50dp"
         android:layout_gravity="center"
-        android:fontFamily="@font/bold"
         android:hint="       Enter username"
         android:backgroundTint="@color/white"
         android:background="@drawable/round_edit_text"
@@ -59,7 +55,6 @@
         android:layout_width="200dp"
         android:layout_height="50dp"
         android:layout_gravity="center"
-        android:fontFamily="@font/bold"
         android:hint="       Enter password"
         android:backgroundTint="@color/white"
         android:background="@drawable/round_edit_text"
@@ -71,7 +66,6 @@
         android:layout_width="200dp"
         android:layout_height="50dp"
         android:layout_gravity="center"
-        android:fontFamily="@font/bold"
         android:hint=" Enter password again"
         android:backgroundTint="@color/white"
         android:background="@drawable/round_edit_text"
@@ -130,7 +124,6 @@
         android:layout_width="200dp"
         android:layout_height="50dp"
         android:layout_gravity="center"
-        android:fontFamily="@font/bold"
         android:text="Submit"
         app:backgroundTint="@color/white"
         android:background="@drawable/button_border"
@@ -142,12 +135,22 @@
         android:layout_width="200dp"
         android:layout_height="50dp"
         android:layout_gravity="center"
-        android:fontFamily="@font/bold"
         android:text="Forgot password"
         app:backgroundTint="@color/white"
         android:background="@drawable/button_border"
         android:textColor="@color/black"
         android:layout_marginTop="10dp"
         android:id="@+id/registerToForgotPassword"/>
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:text="Login Page"
+        app:backgroundTint="@color/white"
+        android:background="@drawable/button_border"
+        android:textColor="@color/black"
+        android:layout_marginTop="10dp"
+        android:id="@+id/registerToLoginPage"/>
 
 </LinearLayout>
