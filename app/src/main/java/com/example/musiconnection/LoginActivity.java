@@ -1,4 +1,4 @@
-package com.example.onlyurispcproj;
+package com.example.musiconnection;
 
 import android.content.Intent;
 import android.content.SharedPreferences;

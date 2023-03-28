@@ -1,4 +1,4 @@
-package com.example.onlyurispcproj;
+package com.example.musiconnection;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -27,7 +27,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
-import com.example.onlyurispcproj.databinding.ActivityMainScreenAppBinding;
+import com.example.musiconnection.databinding.ActivityMainScreenAppBinding;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.location.LocationCallback;

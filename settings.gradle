@@ -12,5 +12,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "OnlyUrisPCProj"
+rootProject.name = "MusiConnection"
 include ':app'

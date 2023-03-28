@@ -1,4 +1,4 @@
-package com.example.onlyurispcproj;
+package com.example.musiconnection;
 
 class Encryption {
     public static String encrypt(String plainText, int shift) {

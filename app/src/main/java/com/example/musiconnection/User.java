@@ -1,4 +1,4 @@
-package com.example.onlyurispcproj;
+package com.example.musiconnection;
 
 import androidx.annotation.NonNull;
 

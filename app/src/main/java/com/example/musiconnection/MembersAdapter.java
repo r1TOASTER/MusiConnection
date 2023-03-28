@@ -1,4 +1,4 @@
-package com.example.onlyurispcproj;
+package com.example.musiconnection;
 
 import android.content.Context;
 import android.view.LayoutInflater;

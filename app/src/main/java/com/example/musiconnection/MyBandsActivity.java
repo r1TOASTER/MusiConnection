@@ -1,4 +1,4 @@
-package com.example.onlyurispcproj;
+package com.example.musiconnection;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
