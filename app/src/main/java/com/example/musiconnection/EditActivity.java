@@ -1,7 +1,6 @@
 package com.example.musiconnection;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -151,8 +150,7 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
                             }
 
                             Toast.makeText(this, "User details updated successfully", Toast.LENGTH_LONG).show();
-                            Intent intent = new Intent(EditActivity.this, MainScreenApp.class);
-                            startActivity(intent);
+                            finish();
                         }
                         else {
                             Toast.makeText(this, "Failed to update account, try again later", Toast.LENGTH_LONG).show();
@@ -189,8 +187,7 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
 
                     if (!dbInteract("update users " + currentUser.toString() + "," + saveTo.toString()).equals("Failed")){
                         Toast.makeText(this, "User details updated successfully", Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(EditActivity.this, MainScreenApp.class);
-                        startActivity(intent);
+                        finish();
                     }
                     else {
                         Toast.makeText(this, "Failed to update account, try again later", Toast.LENGTH_LONG).show();
