@@ -294,7 +294,7 @@ public class MyBandsActivity extends AppCompatActivity implements View.OnClickLi
 
         if (!Places.isInitialized())
         {
-            Places.initialize(getApplicationContext(), "AIzaSyBEGE6dcNo6OLDeWp-dBNVvR06CO_ffQN0");
+            Places.initialize(getApplicationContext(), "AIzaSyCyRj4OYBK20__AzPwXYcoZTKYz00RLvjQ");
         }
 
         TextView titlePage = editBandDialog.findViewById(R.id.textEditAccount);
@@ -668,7 +668,7 @@ public class MyBandsActivity extends AppCompatActivity implements View.OnClickLi
 
         if (!Places.isInitialized())
         {
-            Places.initialize(getApplicationContext(), "AIzaSyBEGE6dcNo6OLDeWp-dBNVvR06CO_ffQN0");
+            Places.initialize(getApplicationContext(), "AIzaSyCyRj4OYBK20__AzPwXYcoZTKYz00RLvjQ");
         }
 
         addBandDialog.setTitle("Add A New Band");
