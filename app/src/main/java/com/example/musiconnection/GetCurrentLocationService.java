@@ -26,22 +26,28 @@ public class GetCurrentLocationService extends AsyncTask<Void, Void, LatLng>
 
     // .execute().get() gets the return value.
     @Override
+    // This AsyncTask retrieves the user's current location using the Fused Location Provider API.
     protected LatLng doInBackground(Void... voids)
     {
-        double latitude;
-        double longitude;
-
+        // Remove any pending location updates
         LocationServices.getFusedLocationProviderClient(weakReference.get())
                 .removeLocationUpdates(locationCallback);
 
+        // If there is at least one location in the location result object
         if (locationResult != null && locationResult.getLocations().size() > 0)
         {
-            // Get the most recent location from the location result
+            // Get the most recent location from the location result - the last index means the last location result in the list
             int index = locationResult.getLocations().size() - 1;
-            latitude = locationResult.getLocations().get(index).getLatitude();
-            longitude = locationResult.getLocations().get(index).getLongitude();
+
+            // Store the latitude and the longitude of the last location in the list (most recent)
+            double latitude = locationResult.getLocations().get(index).getLatitude();
+            double longitude = locationResult.getLocations().get(index).getLongitude();
+
+            // Create a new LatLng object with the latitude and longitude values from the last location
             return new LatLng(latitude, longitude);
         }
+
+        // If no location is available, return null
         return null;
     }
 }

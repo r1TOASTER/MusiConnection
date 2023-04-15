@@ -244,32 +244,43 @@ public class RequestsPage extends AppCompatActivity {
 
     private ArrayList<Request> getMyRequestsFromDB(User ownerOfBandsThatHaveRequests) {
         ArrayList<Request> ret = new ArrayList<Request>();
+        // this is the return value, in edge cases or when there is no data, returning empty ArrayList
         String allofrequestesString;
         try {
             Sockets dbLinker = new Sockets();
             allofrequestesString = dbLinker.execute("getrequests requests " + currentUser.toString()).get();
+            // getting the data from the server using sockets
             String[] requestsArray = allofrequestesString.split(":");
+            // splitting the data using semicolon (like I chose in the server side when sending)
+            // into array of strings
             int length;
             try {
                 length = Integer.parseInt(requestsArray[1]);
+                // the first element (the 0nth is None) should be the length of the upcoming data in the list
             } catch (Exception e) {
                 e.printStackTrace();
                 return new ArrayList<>();
+                // if the data had been corrupted, return empty ArrayList
             }
+            // else, go through the list using the length of it
             for (int i = 1; i <= length; ++i){
                 String currentRequest = requestsArray[i + 1];
-
+                // get the string of the current reguest (starting from number 2 - 1 is the length)
                 User requester = toUser(String.join(",", Arrays.copyOfRange(currentRequest.split(","), 0, 7)));
+                // get the user object requester of the request using a helper function
                 BandClass bandToJoin = toBand(String.join(",", Arrays.copyOfRange(currentRequest.split(","), 7, currentRequest.length())));
-
+                // get the band object requester of the request using a helper function
                 ret.add(new Request(bandToJoin, requester));
+                // adding to the ArrayList the current Request
             }
 
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
             return new ArrayList<>();
+            // if anything happens, return an empty ArrayList
     }
         return ret;
+        // return the ArrayList
     }
 
     private BandClass toBand(String substring) {
