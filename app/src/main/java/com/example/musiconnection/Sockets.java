@@ -7,7 +7,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.net.SocketAddress;
 import java.net.SocketTimeoutException;
 import java.nio.charset.StandardCharsets;
 
@@ -16,6 +18,7 @@ public class Sockets extends AsyncTask<String, Void, String>
 {
     private final String IP = "172.19.14.150";
     private final int PORT = 5556;
+    private final int TIME_OUT = 10500;
 
     private Socket socket;
 
@@ -26,12 +29,15 @@ public class Sockets extends AsyncTask<String, Void, String>
     @Override
     protected String doInBackground(String... arrMessages) {
         try {
-            this.socket = new Socket(IP, PORT);
-            this.socket.setSoTimeout(10500);
+            this.socket = new Socket();
+            SocketAddress end_point = new InetSocketAddress(IP, PORT);
+            this.socket.connect(end_point, TIME_OUT);
             this.output = socket.getOutputStream();
             this.input = socket.getInputStream();
         } catch (IOException e) {
             e.printStackTrace();
+            Log.e("Error", "Error while trying to access the server");
+            return "Failed";
         }
 
         String message = arrMessages[0];
@@ -66,12 +72,12 @@ public class Sockets extends AsyncTask<String, Void, String>
             }
             catch (IOException e){
                 e.printStackTrace();
-                response = "Failed";
+                return "Failed";
             }
 
         } catch (IOException e) {
             e.printStackTrace();
-            response = "Failed";
+            return "Failed";
         }
 
         return response;
