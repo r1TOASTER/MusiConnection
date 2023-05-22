@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.concurrent.ExecutionException;
 
+// Showing the Settings screen of the app for the user.
 public class SettingActivirty extends AppCompatActivity implements View.OnClickListener {
     TextView settingsText;
     Button logOut, deleteAccount, toDetails, goBack, forgotPassword;
@@ -47,12 +48,14 @@ public class SettingActivirty extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View view) {
         if (view == logOut) {
+            // if the user clicked on the log out button
             SharedPreferences settings = getSharedPreferences("currentUser", Context.MODE_PRIVATE);
             settings.edit().clear().apply();
             Intent intent = new Intent(SettingActivirty.this, MainActivity.class);
             startActivity(intent);
         }
         else if (view == deleteAccount) {
+            // if the user clicked on the delete account button
             if (currentUser != null) {
                 String currentUserString = currentUser.toString();
                 if (!dbInteract("remove users " + currentUserString).equals("Failed")){
@@ -73,18 +76,22 @@ public class SettingActivirty extends AppCompatActivity implements View.OnClickL
 
         }
         else if (view == toDetails) {
+            // if the user wants to go into the account details page
             Intent intent = new Intent(SettingActivirty.this, EditActivity.class);
             startActivity(intent);
         }
         else if (view == goBack) {
+            // if the user wants to return to the previous page
             finish();
         }
         else if (view == forgotPassword){
+            // if the user wants to go into the forgot password page
             Intent intent = new Intent(SettingActivirty.this, ForgotPassword.class);
             startActivity(intent);
         }
     }
 
+    // Converts a user's representation as a string into a User class object and returns it
     private User toUser(String ret) {
         String[] values = ret.split(","); //spliting by ","
         String name = values[0];
@@ -97,6 +104,7 @@ public class SettingActivirty extends AppCompatActivity implements View.OnClickL
         return returnUser;
     }
 
+    // Returns the string retrieved from the Server side using a socket.
     public String dbInteract(String message) {
         String response;
         try {

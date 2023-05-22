@@ -6,8 +6,8 @@ android {
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.onlyurispcproj"
-        minSdk 33
+        applicationId "com.example.musiconnection"
+        minSdk 30
         targetSdk 33
         versionCode 1
         versionName "1.0"

@@ -37,6 +37,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+// MyBandsActivity is responsible for the user's bands page in the app. 
 public class MyBandsActivity extends AppCompatActivity implements View.OnClickListener {
     Button addBand;
     BandAdapter bandAdapter;
@@ -55,7 +56,6 @@ public class MyBandsActivity extends AppCompatActivity implements View.OnClickLi
     LocationClass setNewLocation = null ,newLocationEdit  = null;
     ArrayList<User> newMembersOfBand = new ArrayList<User>();
 
-    // addMemberDialog - general
     Button addNewMemberButton, saveCurrentMembers;
 
     @Override
@@ -85,6 +85,7 @@ public class MyBandsActivity extends AppCompatActivity implements View.OnClickLi
             bands = getMyBands;
         }
 
+        // setting the current bands of the user into listview using band's adapter
         listViewBands = (ListView) findViewById(R.id.lvMyBands);
         bandAdapter = new BandAdapter(this, 0, 0, bands, currentUser);
         listViewBands.setAdapter(bandAdapter);
@@ -95,10 +96,10 @@ public class MyBandsActivity extends AppCompatActivity implements View.OnClickLi
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                 lastBandSelected = bandAdapter.getItem(i);
                 if (lastBandSelected.getOwner().getMail().equals(currentUserMail)) {
-                    createDeleteDialog();
+                    createDeleteDialog(); // if user is owner, then dialog of delete band is shown
                 }
                 else {
-                    createRemoveMemberDialog();
+                    createRemoveMemberDialog(); // if user is not owner, then dialog of removing himself off the band is shown
                 }
                 return false;
             }
@@ -108,6 +109,7 @@ public class MyBandsActivity extends AppCompatActivity implements View.OnClickLi
 
     }
 
+    // the dialog is for deleting the user himself from the band (as a member in the band).
     private void createRemoveMemberDialog() {
         removeYourselfAsAMember = new Dialog(MyBandsActivity.this);
         removeYourselfAsAMember.setContentView(R.layout.remove_member_dialog);
@@ -122,6 +124,7 @@ public class MyBandsActivity extends AppCompatActivity implements View.OnClickLi
         removeYourselfAsAMember.show();
     }
 
+    // Returns the bands as an ArrayList of Band class objects when recieved from the Server side using a socket.
     private ArrayList<BandClass> getMyBandsFromDB(User currentUser) {
         ArrayList<BandClass> ret = new ArrayList<>();
         String allofbandsString;
@@ -137,6 +140,7 @@ public class MyBandsActivity extends AppCompatActivity implements View.OnClickLi
                 e.printStackTrace();
                 return new ArrayList<>();
             }
+            // for each band in the length I recieved, convert the string into a band class object.
             for (int i = 1; i <= length; ++i){
                 String currentBand = bandsArray[i + 1];
                 BandClass band = toBand(String.join(",", Arrays.copyOfRange(currentBand.split(","), 0, currentBand.length())));
@@ -153,6 +157,7 @@ public class MyBandsActivity extends AppCompatActivity implements View.OnClickLi
 
     }
 
+    // Converts a string representation of a band into a band class object, and returns it.
     private BandClass toBand(String substring) {
         String[] values = substring.split(",");
         String name = values[0];
@@ -161,6 +166,7 @@ public class MyBandsActivity extends AppCompatActivity implements View.OnClickLi
         int lengthOfMembers = Integer.parseInt(values[11]);
         User[] members = new User[lengthOfMembers];
 
+        // going into the members of the band after recieving the length of the members list.
         for (int i = 0; i < lengthOfMembers; ++i){
             members[i] = toUser(String.join(",", Arrays.copyOfRange(values, i * 7 + 12, i * 7 + 19)));
         }
@@ -172,6 +178,7 @@ public class MyBandsActivity extends AppCompatActivity implements View.OnClickLi
         return ret;
     }
 
+    // The dialog when the user is the owner of the band shows. The user can choose to edit the selected band, or delete it (or none).
     private void createDeleteDialog() {
         deleteDialog = new Dialog(MyBandsActivity.this);
         deleteDialog.setContentView(R.layout.delete_band_dialog);
@@ -189,12 +196,14 @@ public class MyBandsActivity extends AppCompatActivity implements View.OnClickLi
         deleteDialog.show();
     }
 
+    // The menu is shown
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.my_bands_menu, menu);
         return true;
     }
 
+    // The menu's options for when clicking on one.
     @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -218,20 +227,24 @@ public class MyBandsActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void onClick(View view) {
-        if (view == deleteBand) {
+        if (view == deleteBand) { 
+            // if removing a band
             bandAdapter.remove(lastBandSelected);
             bandAdapter.notifyDataSetChanged();
             dbInteract("remove bands " + lastBandSelected);
             deleteDialog.dismiss();
         } else if (view == cancelDeleteBand) {
+            // if dismissing the dialog
             deleteDialog.dismiss();
         } else if (view == addBand) {
+            // if the user chose to add a band
             membersList = new ArrayList<>();
             createNewBandDialog();
         } else if (view == addMembersButtonDialog) {
+            // if the user chose to add members to a band
             addMembersDialog();
         } else if (view == saveNewBand) {
-
+            // saving the new band
             if (nameOfNewBand.getText().toString().equals("") || setNewLocation == null) {
                 Toast.makeText(this, "Please enter both a name for the new band and choose a valid loctaion", Toast.LENGTH_LONG).show();
             } else {
@@ -255,9 +268,10 @@ public class MyBandsActivity extends AppCompatActivity implements View.OnClickLi
                 addBandDialog.dismiss();
             }
         } else if (view == cancelNewBand) {
+            // if dismissing the new band dialog
             addBandDialog.dismiss();
         } else if (view == resignYourself) {
-
+            // if removing yourself from the band (user)
             if (!dbInteract("removemember " + currentUser + " " + lastBandSelected).equals("Failed")) {
                 bandAdapter.remove(lastBandSelected);
                 bandAdapter.notifyDataSetChanged();
@@ -267,16 +281,19 @@ public class MyBandsActivity extends AppCompatActivity implements View.OnClickLi
 
             removeYourselfAsAMember.dismiss();
         } else if (view == cancelResigningYourself) {
+            // if dismissing the remove yourself as a member of this band (user)
             removeYourselfAsAMember.dismiss();
         } else if (view == editBand) {
+            // if the user chose to edit the band
             createEditBandDialog(lastBandSelected);
         }
-
         else if (view == saveCurrentMembers) {
+                // if the user chose to save the current members
                 addMembers.dismiss();
             }
         }
-
+    
+    // Shows the current band selection in edit mode for the user's choise
     private void createEditBandDialog(BandClass lastBandSelected) {
         // Create dialog that shows the band's info
         Dialog editBandDialog = new Dialog(MyBandsActivity.this);
@@ -297,6 +314,7 @@ public class MyBandsActivity extends AppCompatActivity implements View.OnClickLi
             Places.initialize(getApplicationContext(), "AIzaSyCyRj4OYBK20__AzPwXYcoZTKYz00RLvjQ");
         }
 
+        // setting the band's information
         TextView titlePage = editBandDialog.findViewById(R.id.textEditAccount);
         TextView nameOfTheBandOwner = editBandDialog.findViewById(R.id.nameOfTheBandOwnerEdit);
         EditText newBandName = editBandDialog.findViewById(R.id.newNameToTheBandEdit);
@@ -306,7 +324,7 @@ public class MyBandsActivity extends AppCompatActivity implements View.OnClickLi
         Button dontSaveBandChanges = editBandDialog.findViewById(R.id.dontSaveBandChanges);
 
         searchViewNewLocation.setPlaceFields(Arrays.asList(Place.Field.LAT_LNG)); // get LatLng from Place class
-        //set up everything
+        //sets up everything
         nameOfTheBandOwner.setText(lastBandSelected.getOwner().getName());
         newBandName.setHint(lastBandSelected.getName());
 
@@ -339,6 +357,7 @@ public class MyBandsActivity extends AppCompatActivity implements View.OnClickLi
                     String newAdd2 = newAdd.replace(" ", "");
                     newLocationEdit = new LocationClass(address.getLatitude(), address.getLongitude(), newAdd2);
 
+                    // setting the location of the current band information
                     searchViewNewLocation.setHint(addAddress);
                 }
                 catch (Exception e){
@@ -415,6 +434,7 @@ public class MyBandsActivity extends AppCompatActivity implements View.OnClickLi
         editBandDialog.show();
     }
 
+    // Shows the edit members dialog of the chosen band
     private void createEditMembersDialog(User[] tempMembers) {
         Dialog editMembersDialog = new Dialog(MyBandsActivity.this);
         editMembersDialog.setContentView(R.layout.edit_members_dialog);
@@ -431,6 +451,7 @@ public class MyBandsActivity extends AppCompatActivity implements View.OnClickLi
 
         ArrayList<User> currentBandMembers = new ArrayList<>();
 
+        // setting the members of the band
         for (User s : tempMembers){
             if (s != null) {
                 currentBandMembers.add(s);
@@ -443,6 +464,7 @@ public class MyBandsActivity extends AppCompatActivity implements View.OnClickLi
         lvMembersInAddDialogEdit.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                // removing current member from the band dialog
                 deleteCurrentMemberBand(membersAdapterEdit.getItem(position), currentBandMembers, membersAdapterEdit);
                 return false;
             }
@@ -451,10 +473,12 @@ public class MyBandsActivity extends AppCompatActivity implements View.OnClickLi
         addNewMemberButtonEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // adding a new member to the band 
                 createAddSingleMemberEdit(currentBandMembers, membersAdapterEdit);
             }
         });
 
+        // saving the current band members
         saveNewMembersButtonEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -471,6 +495,7 @@ public class MyBandsActivity extends AppCompatActivity implements View.OnClickLi
         editMembersDialog.show();
     }
 
+    // Shows the dialog for adding a member into the edited band
     private void createAddSingleMemberEdit(ArrayList<User> currentBandMembers, MembersAdapter membersAdapterEdit) {
         Dialog addSingleMemberEdit = new Dialog(MyBandsActivity.this);
         addSingleMemberEdit.setContentView(R.layout.add_single_member_edit_dialog);
@@ -487,6 +512,7 @@ public class MyBandsActivity extends AppCompatActivity implements View.OnClickLi
         addSingleMemberButtonEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // if there is such user, using that mail, and checking that the user is not the owner, already in the band or the band is full already, then adding him
                 String ret = dbInteract("searchmail users " + newMemberMailSearchEdit.getText().toString());
                 if (!ret.equals("Failed")){
                     User newMember = toUser(ret);
@@ -528,6 +554,7 @@ public class MyBandsActivity extends AppCompatActivity implements View.OnClickLi
         addSingleMemberEdit.show();
     }
 
+    // Shows the members list dialog of the chosen band
     private void addMembersDialog() {
         addMembers = new Dialog(MyBandsActivity.this);
         addMembers.setContentView(R.layout.add_members_dialog);
@@ -537,6 +564,7 @@ public class MyBandsActivity extends AppCompatActivity implements View.OnClickLi
         window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
         window.setGravity(Gravity.CENTER);
 
+        // setting the band's members info
         TextView title = addMembers.findViewById(R.id.titleAddMembers);
         ListView membersLV = addMembers.findViewById(R.id.lvMembersInAddDialog);;
         saveCurrentMembers = addMembers.findViewById(R.id.saveNewMembersButton);
@@ -548,6 +576,7 @@ public class MyBandsActivity extends AppCompatActivity implements View.OnClickLi
         membersLV.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                // shows the delete memebr from the band dialog
                 deleteCurrentMemberBand(membersAdapter.getItem(position), membersList, membersAdapter);
                 return false;
             }
@@ -558,6 +587,7 @@ public class MyBandsActivity extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onClick(View v) {
                 if (v == addNewMemberButton) {
+                    // shows the dialog for adding new member to the band
                     openAddSingleMemberDialog();
                 }
             }
@@ -567,7 +597,7 @@ public class MyBandsActivity extends AppCompatActivity implements View.OnClickLi
 
     }
 
-    // real add a member dialog -> when you enter mail and add him if you can
+    // Shows the dialog for adding new member to the band in normal mode - creating a new band
     private void openAddSingleMemberDialog() {
         Dialog addSingleMember = new Dialog(MyBandsActivity.this);
         addSingleMember.setContentView(R.layout.add_single_member_dialog);
@@ -585,6 +615,7 @@ public class MyBandsActivity extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onClick(View v) {
                 if (v == addSingleMemberButtonAndSave){
+                    // if there is such user, using that mail, and checking that the user is not the owner, already in the band or the band is full already, then adding him
                     String ret = dbInteract("searchmail users " + memberMail.getText().toString());
                     if (!ret.equals("Failed")){
                         User newMember = toUser(ret);
@@ -628,6 +659,7 @@ public class MyBandsActivity extends AppCompatActivity implements View.OnClickLi
         addSingleMember.show();
     }
 
+    // Shows the dialog that checks if to remove a certain member from a band's list or not
     private void deleteCurrentMemberBand(User lastUserSelected, ArrayList<User> membersList, MembersAdapter membersAdapter) {
         Dialog deleteCurrentMember = new Dialog(MyBandsActivity.this);
         deleteCurrentMember.setContentView(R.layout.delete_current_member_dialog);
@@ -657,7 +689,8 @@ public class MyBandsActivity extends AppCompatActivity implements View.OnClickLi
         });
         deleteCurrentMember.show();
     }
-
+    
+    // Shows the dialog for creating a new band of the user
     private void createNewBandDialog(){
         addBandDialog = new Dialog(MyBandsActivity.this);
         addBandDialog.setContentView(R.layout.add_band_dialog);
@@ -737,6 +770,7 @@ public class MyBandsActivity extends AppCompatActivity implements View.OnClickLi
         addBandDialog.show();
     }
 
+    // Converts a user's representation as a string into a User class object and returns it
     private User toUser(String ret) {
         String[] values = ret.split(","); //spliting by ","
         String name = values[0];
@@ -749,6 +783,7 @@ public class MyBandsActivity extends AppCompatActivity implements View.OnClickLi
         return returnUser;
     }
 
+    // Returns the string that recieved from the Server side using a socket.
     public String dbInteract(String message) {
         String response;
         try {

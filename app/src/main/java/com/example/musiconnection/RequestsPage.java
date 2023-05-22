@@ -23,7 +23,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
-
+// RequestsPage is responsible for showing the requests of the user in a page on the app.
 public class RequestsPage extends AppCompatActivity {
     ListView lvRequests;
     String currentUserMail;
@@ -111,6 +111,7 @@ public class RequestsPage extends AppCompatActivity {
         ListView lvMembersOfBandRequest = viewRequest.findViewById(R.id.lvMembersOfBandRequest);
         ArrayList<User> members = new ArrayList<User>();
 
+        // going through the members of the band requested to join
         for (int i = 0; i < 5; ++i) {
             if (lastRequestSelected.getBandToJoin().getMembers()[i] != null)
                 members.add(lastRequestSelected.getBandToJoin().getMembers()[i]);
@@ -217,7 +218,8 @@ public class RequestsPage extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-
+    
+    // Converts a user's representation as a string into a User class object and returns it
     private User toUser(String ret) {
         String[] values = ret.split(","); //spliting by ","
         String name = values[0];
@@ -230,6 +232,7 @@ public class RequestsPage extends AppCompatActivity {
         return returnUser;
     }
 
+    // Returns the string retrieved from the Server side using a socket.
     public String dbInteract(String message) {
         String response;
         try {
@@ -242,6 +245,7 @@ public class RequestsPage extends AppCompatActivity {
         return response;
     }
 
+    // Setting all of the requests of a user owner of a bands into an ArrayList of Request class objects, and returning it 
     private ArrayList<Request> getMyRequestsFromDB(User ownerOfBandsThatHaveRequests) {
         ArrayList<Request> ret = new ArrayList<Request>();
         // this is the return value, in edge cases or when there is no data, returning empty ArrayList
@@ -282,7 +286,7 @@ public class RequestsPage extends AppCompatActivity {
         return ret;
         // return the ArrayList
     }
-
+    // Converts a band's representation as a string into a Band class object and returns it
     private BandClass toBand(String substring) {
         String[] values = substring.split(",");
         String name = values[0];

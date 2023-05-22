@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.concurrent.ExecutionException;
 
+// ForgotPassword represents the Forgot Password page in the app.
 public class ForgotPassword extends AppCompatActivity implements View.OnClickListener {
     TextView forgotPasswordPage;
     EditText mail;
@@ -55,6 +56,7 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
         }
     }
 
+    // Returns the String that the functions receives from the Server side using sockets to connect.
     public String dbInteract(String message) {
         String response;
         try {
@@ -67,6 +69,7 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
         return response;
     }
 
+    // Genegrates a User class object from a user's String representation, and returns it.
     private User toUser(String ret) {
         String[] values = ret.split(","); //spliting by ","
         String name = values[0];

@@ -56,7 +56,7 @@ import java.util.concurrent.ExecutionException;
 
 
 public class MainScreenApp extends AppCompatActivity implements OnMapReadyCallback, View.OnClickListener  {
-    GoogleMap mMap;
+    GoogleMap mMap = null;
     ListView listViewBands, listViewDialogBand;
     BandAdapter bandAdapter;
     ArrayList<User> members;
@@ -197,15 +197,20 @@ public class MainScreenApp extends AppCompatActivity implements OnMapReadyCallba
         }
 
         if (bandAdapter != null){
+            // if no adapter for the bands right now
             if (getBandsFromLocation == null){
+                // no bands from the user
                 if (currentUserLocation != null) {
+                    // there is the current location
                     getBandsFromLocation = getMyBandsFromDBUsingLocation(currentUserLocation);
                     bandAdapter.clear();
                     for (BandClass b : getBandsFromLocation){
                         bandAdapter.add(b);
                     }
+                    // get the bands and add it
                 }
                 else {
+                    // use empty bands
                     getBandsFromLocation = new ArrayList<>();
                     bandAdapter.clear();
                     for (BandClass b : getBandsFromLocation){
@@ -221,22 +226,25 @@ public class MainScreenApp extends AppCompatActivity implements OnMapReadyCallba
                     }
                     if (currentUserLocation != null) {
                         LatLng currentLocation = new LatLng(currentUserLocation.getLatitude(), currentUserLocation.getLongitude());
-                        if (currentLocation != null) {
-                            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(currentLocation, zoom);
-                            mMap.animateCamera(cameraUpdate);
-                        }
+                        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(currentLocation, zoom);
+                        mMap.animateCamera(cameraUpdate);
                     }
                 }
+                // set the map with the bands markers
             }
         }
         else {
+            // if there is an adapter for the bands
             if (getBandsFromLocation == null){
+                // if there are no bands from the user
                 if (currentUserLocation != null) {
+                    // if there is the current user's location
                     getBandsFromLocation = getMyBandsFromDBUsingLocation(currentUserLocation);
                     bandAdapter = new BandAdapter(MainScreenApp.this, 0, 0, getBandsFromLocation, currentUser);
                     for (BandClass b : getBandsFromLocation){
                         bandAdapter.add(b);
                     }
+                    // get the bands
                 }
                 else {
                     getBandsFromLocation = new ArrayList<>();
@@ -254,12 +262,11 @@ public class MainScreenApp extends AppCompatActivity implements OnMapReadyCallba
                     }
                     if (currentUserLocation != null) {
                         LatLng currentLocation = new LatLng(currentUserLocation.getLatitude(), currentUserLocation.getLongitude());
-                        if (currentLocation != null) {
-                            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(currentLocation, zoom);
-                            mMap.animateCamera(cameraUpdate);
-                        }
+                        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(currentLocation, zoom);
+                        mMap.animateCamera(cameraUpdate);
                     }
                 }
+                // set the map with the bands
             }
         }
 
@@ -436,11 +443,9 @@ public class MainScreenApp extends AppCompatActivity implements OnMapReadyCallba
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Add a marker in Sydney and move the camera
         if (currentUserLocation != null) {
             LatLng currentLocation = new LatLng(currentUserLocation.getLatitude(), currentUserLocation.getLongitude());
-            if (currentLocation != null)
-                mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
         }
 
         if (getBandsFromLocation != null){

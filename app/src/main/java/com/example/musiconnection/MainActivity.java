@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+// MainActivity is responsible for the Opening page of the app.
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     TextView welcome, musiconnection;
     Button login, register;

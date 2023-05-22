@@ -1,6 +1,8 @@
 package com.example.musiconnection;
 
+// Encryption class holds the encrypt and decrypt functions to use when sending / receiving data in / from a socket.
 class Encryption {
+    // Returns the encrypted string that was generated using the plainText and the shift number.
     public static String encrypt(String plainText, int shift) {
         StringBuilder encryptedText = new StringBuilder();
         for (int i = 0; i < plainText.length(); i++) {
@@ -17,6 +19,7 @@ class Encryption {
         return encryptedText.toString();
     }
 
+    // Returns the decrypted string that was generated using the plainText and the shift number.
     public static String decrypt(String cipherText, int shift) {
         StringBuilder decryptedText = new StringBuilder();
         for (int i = 0; i < cipherText.length(); i++) {

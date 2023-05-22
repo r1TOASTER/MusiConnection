@@ -11,21 +11,23 @@ import java.net.Socket;
 import java.net.SocketTimeoutException;
 import java.nio.charset.StandardCharsets;
 
+// This class is responsible for creating a connection between the Client side (this) and the Server side using sockets.
 public class Sockets extends AsyncTask<String, Void, String>
 {
-    private final String IP = "10.100.102.12";
-    private final int PORT = 1337;
+    private final String IP = "172.19.14.150";
+    private final int PORT = 5556;
 
     private Socket socket;
 
     private OutputStream output;
     private InputStream input;
 
+    // A service for connecting a socket and sending the message encrypted to the server, returning the response decrypted, and all of that in the background 
     @Override
     protected String doInBackground(String... arrMessages) {
         try {
             this.socket = new Socket(IP, PORT);
-
+            this.socket.setSoTimeout(10500);
             this.output = socket.getOutputStream();
             this.input = socket.getInputStream();
         } catch (IOException e) {
@@ -38,6 +40,7 @@ public class Sockets extends AsyncTask<String, Void, String>
         try {
             // Writes the message for the server
             OutputStreamWriter writer = new OutputStreamWriter(this.output);
+            // encrypting the message
             writer.write(Encryption.encrypt(message,3));
             writer.flush();
 
@@ -50,6 +53,7 @@ public class Sockets extends AsyncTask<String, Void, String>
                     byteInfo.write((char) currentByte);
                 }
                 byte[] allBytesGot = byteInfo.toByteArray();
+                // decrypting the message
                 response = Encryption.decrypt(new String(allBytesGot, StandardCharsets.UTF_8),3);
 
                 byteInfo.close();
@@ -73,6 +77,7 @@ public class Sockets extends AsyncTask<String, Void, String>
         return response;
     }
 
+    // when the connection is finished, close the socket
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);

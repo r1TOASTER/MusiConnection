@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.concurrent.ExecutionException;
 
+// LoginActivity is responsible for the Login page in the app.
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     TextView welcome, loginpageText;
     EditText mail, password;
@@ -40,6 +41,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         forgotPassword.setOnClickListener(this);
     }
 
+    // Checks if the email address is valid (using regex to check for valid patterns), and returns true / false accordingly.
     public boolean isValidEmailAddress(String email) {
         String ePattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
         java.util.regex.Pattern p = java.util.regex.Pattern.compile(ePattern);
@@ -47,6 +49,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         return m.matches();
     }
 
+    // Returns the String that the functions receives from the Server side using sockets to connect.
     public String dbInteract(String message) {
         String response;
         try {

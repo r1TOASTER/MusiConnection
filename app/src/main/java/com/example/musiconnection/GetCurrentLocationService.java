@@ -11,6 +11,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.lang.ref.WeakReference;
 
+// GetCurrentLocationService is resposible for getting the user's current location as a service.
 public class GetCurrentLocationService extends AsyncTask<Void, Void, LatLng>
 {
     private WeakReference<MainScreenApp> weakReference;

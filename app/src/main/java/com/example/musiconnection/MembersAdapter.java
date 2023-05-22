@@ -9,31 +9,37 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+// Custome MembersAdapter that is responsible for setting the ArrayAdapter for User class objects. 
 public class MembersAdapter extends ArrayAdapter<User> {
     private ArrayList<User> members;
     private LayoutInflater inflater;
 
+    // Constructor for membersAdapter, setting the context, the members and the inflater.
     public MembersAdapter(Context context, int resource, int viewListResourceID, ArrayList<User> members){
         super(context, resource, viewListResourceID, members);
         this.members = members;
         this.inflater = LayoutInflater.from(context);
     }
 
+    // Returns the size of the list that contains the members.
     @Override
     public int getCount() {
         return members.size();
     }
 
+    // Returns the user at the specified index.
     @Override
     public User getItem(int position) {
         return members.get(position);
     }
 
+    // Returns the user's id - does not have one.
     @Override
     public long getItemId(int position) {
         return 0;
     }
 
+    // Setting the view of a member and returning it.
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = convertView;

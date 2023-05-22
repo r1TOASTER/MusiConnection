@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.concurrent.ExecutionException;
 
+// EditActivity represents the Edit Account Settings page in the app.
 public class EditActivity extends AppCompatActivity implements View.OnClickListener {
     TextView textEditAccount;
     EditText newMail, newUsername, newPassword, newRadius;
@@ -103,6 +104,7 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    // Genegrates a User class object from a user's String representation, and returns it.
     private User toUser(String ret) {
         String[] values = ret.split(","); //spliting by ","
         String name = values[0];
@@ -200,6 +202,7 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    // Returns the String that the functions receives from the Server side using sockets to connect.
     public String dbInteract(String message) {
         String response;
         try {
@@ -212,6 +215,7 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
         return response;
     }
 
+    // Checks if the password is valid (using only chars and digits), and returns true / false accordingly.
     public boolean isValidPassword(String password){
         for (int i = 0; i < password.length(); ++i){
             if (!Character.isAlphabetic(password.charAt(i)) && !Character.isDigit(password.charAt(i)))
@@ -220,6 +224,7 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
         return true;
     }
 
+    // Checks if the email address is valid (using regex to check for valid patterns), and returns true / false accordingly.
     public boolean isValidEmailAddress(String email) {
         String ePattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
         java.util.regex.Pattern p = java.util.regex.Pattern.compile(ePattern);

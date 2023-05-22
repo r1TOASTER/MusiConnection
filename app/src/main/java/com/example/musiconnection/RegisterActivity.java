@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.concurrent.ExecutionException;
 
+// The class is responsible for showing the Register page of the app to register the user to the app.
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
     TextView welcome, registerpageText;
     EditText mail, password, username, passwordvalidate;
@@ -45,7 +46,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         toLoginPage.setOnClickListener(this);
         forgotPassword.setOnClickListener(this);
     }
-
+    
+    // Checking if the email provided is valid using a regex pattern, and returning true / false accordingly.
     public boolean isValidEmailAddress(String email) {
         String ePattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
         java.util.regex.Pattern p = java.util.regex.Pattern.compile(ePattern);
@@ -53,6 +55,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         return m.matches();
     }
 
+    // Returns the string that recieved from the Server side using a socket.
     public String dbInteract(String message) {
         String response;
         try {
@@ -82,7 +85,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     Toast.makeText(this, "Please Enter a Password With Nothing But Digits and Letters", Toast.LENGTH_LONG).show();
                 }
                 else {
-                    if (dbInteract("searchmail users " + mailStr).equals("Failed")) { // There is no such mail in user
+                    if (dbInteract("searchmail users " + mailStr).equals("Failed")) { 
+                        // There is no such mail in user - can register
 
                         user.setName(usernameStr);
                         user.setMail(mailStr);
@@ -141,6 +145,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
+    // Checks if the password provided is valid (only chars and digits) and returns true / false accordingly
     public boolean isValidPassword(String password){
         for (int i = 0; i < password.length(); ++i){
             if (!Character.isAlphabetic(password.charAt(i)) && !Character.isDigit(password.charAt(i)))
