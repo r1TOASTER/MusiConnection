@@ -96,11 +96,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         String add_user = dbInteract("add users " + user.toString());
                         if (add_user.equals("ServerFailed")) {
                             Toast.makeText(this, "Server failed to connect. Please try again later", Toast.LENGTH_LONG).show();
-                            break;
+                            finish();
                         }
                         else if (add_user.equals("Failed")) {
                             Toast.makeText(this, "Something failed while trying to add a user. Please try again later", Toast.LENGTH_LONG).show();
-                            break; 
+                            finish();
                         }
                         
                         // Storing data into SharedPreferences

@@ -73,20 +73,14 @@ public class MyBandsActivity extends AppCompatActivity implements View.OnClickLi
         //if nothing failed -- convert object to user
         if (ret.equals("ServerFailed")) {
             Toast.makeText(this, "Server failed to connect. Please try again later", Toast.LENGTH_LONG).show();
-            SharedPreferences settings = getSharedPreferences("currentUser", Context.MODE_PRIVATE);
-            settings.edit().clear().apply();
-            Intent intent1 = new Intent(MainScreenApp.this, MainActivity.class);
-            startActivity(intent1);
+            finish();
         }
         else if (!ret.equals("Failed")) {
             currentUser = toUser(ret);
         }
         else {
             Toast.makeText(this, "Error ocuured during a try to connect. Please try again later", Toast.LENGTH_LONG).show();
-            SharedPreferences settings = getSharedPreferences("currentUser", Context.MODE_PRIVATE);
-            settings.edit().clear().apply();
-            Intent intent2 = new Intent(MainScreenApp.this, MainActivity.class);
-            startActivity(intent2);
+            finish();
         }
 
         addBand = (Button) findViewById(R.id.addMyBand);
@@ -427,7 +421,7 @@ public class MyBandsActivity extends AppCompatActivity implements View.OnClickLi
 
                 String update_band = dbInteract("updateband " + lastBandSelected.toString() + " " + newBand.toString());
                 if (update_band.equals("ServerFailed")) {
-                    Toast.makeText(this, "Server failed to connect. Please try again later", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MyBandsActivity.this, "Server failed to connect. Please try again later", Toast.LENGTH_LONG).show();
                 }
                 else if (!update_band.equals("Failed")) {
                     bandAdapter.remove(lastBandSelected);
@@ -547,7 +541,7 @@ public class MyBandsActivity extends AppCompatActivity implements View.OnClickLi
                 // if there is such user, using that mail, and checking that the user is not the owner, already in the band or the band is full already, then adding him
                 String ret = dbInteract("searchmail users " + newMemberMailSearchEdit.getText().toString());
                 if (ret.equals("ServerFailed")) {
-                    Toast.makeText(this, "Server failed to connect. Please try again later", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MyBandsActivity.this, "Server failed to connect. Please try again later", Toast.LENGTH_LONG).show();
                 }
                 else if (!ret.equals("Failed")){
                     User newMember = toUser(ret);
@@ -653,7 +647,7 @@ public class MyBandsActivity extends AppCompatActivity implements View.OnClickLi
                     // if there is such user, using that mail, and checking that the user is not the owner, already in the band or the band is full already, then adding him
                     String ret = dbInteract("searchmail users " + memberMail.getText().toString());
                     if (ret.equals("ServerFailed")) {
-                        Toast.makeText(this, "Server failed to connect. Please try again later", Toast.LENGTH_LONG).show();
+                        Toast.makeText(MyBandsActivity.this, "Server failed to connect. Please try again later", Toast.LENGTH_LONG).show();
                     }
                     else if (!ret.equals("Failed")){
                         User newMember = toUser(ret);

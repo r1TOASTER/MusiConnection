@@ -339,14 +339,14 @@ public class MainScreenApp extends AppCompatActivity implements OnMapReadyCallba
                     } else {
                         String request_exist = dbInteract("requestexist " + currentUser.toString() + " " + theBand);
                         if (request_exist.equals("ServerFailed")) {
-                            Toast.makeText(this, "Server failed to connect. Please try again later", Toast.LENGTH_LONG).show();
+                            Toast.makeText(MainScreenApp.this, "Server failed to connect. Please try again later", Toast.LENGTH_LONG).show();
                         }
                         else if (request_exist.equals("True")) {
                             Toast.makeText(MainScreenApp.this, "Already requested to join this band.", Toast.LENGTH_LONG).show();
                         } else {
                             String add_request = dbInteract("addrequest " + currentUser.toString() + " " + theBand);
                             if (add_request.equals("ServerFailed")) {
-                                Toast.makeText(this, "Server failed to connect. Please try again later", Toast.LENGTH_LONG).show();
+                                Toast.makeText(MainScreenApp.this, "Server failed to connect. Please try again later", Toast.LENGTH_LONG).show();
                             }
                             else if (add_request.equals("Failed")) {
                                 Toast.makeText(MainScreenApp.this, "Failed to request the band owner to join this band. Try again later. ", Toast.LENGTH_LONG).show();

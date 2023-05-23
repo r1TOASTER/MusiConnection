@@ -153,12 +153,12 @@ public class RequestsPage extends AppCompatActivity {
                     String update = updateTo.toString();
                     String update_band = dbInteract("updateband " + lastRequestSelected.getBandToJoin().toString() + " " + update);
                     if (update_band.equals("ServerFailed")) {
-                        Toast.makeText(this, "Server failed to connect. Please try again later", Toast.LENGTH_LONG).show();
+                        Toast.makeText(RequestsPage.this, "Server failed to connect. Please try again later", Toast.LENGTH_LONG).show();
                     }
                     else if (!update_band.equals("Failed")) {
                         String request_remove = dbInteract("requestremove " + lastRequestSelected.getRequester().toString() + " " + lastRequestSelected.getBandToJoin().toString());
                         if (request_remove.equals("ServerFailed")) {
-                            Toast.makeText(this, "Server failed to connect. Please try again later", Toast.LENGTH_LONG).show();
+                            Toast.makeText(RequestsPage.this, "Server failed to connect. Please try again later", Toast.LENGTH_LONG).show();
                         }
                         else if (!request_remove.equals("Failed")) {
                             // delete request from listview (adapter)
@@ -186,7 +186,7 @@ public class RequestsPage extends AppCompatActivity {
                 // delete request from db
                 String request_remove = dbInteract("requestremove " + lastRequestSelected.getRequester().toString() + " " + lastRequestSelected.getBandToJoin().toString());
                 if (request_remove.equals("ServerFailed")) {
-                    Toast.makeText(this, "Server failed to connect. Please try again later", Toast.LENGTH_LONG).show();
+                    Toast.makeText(RequestsPage.this, "Server failed to connect. Please try again later", Toast.LENGTH_LONG).show();
                 }
                 else if (!request_remove.equals("Failed")) {
                     // delete request from listview (adapter)
