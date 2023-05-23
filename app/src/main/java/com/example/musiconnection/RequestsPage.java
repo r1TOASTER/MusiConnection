@@ -43,8 +43,16 @@ public class RequestsPage extends AppCompatActivity {
         String ret = dbInteract("searchmail users " + currentUserMail);
 
         //if nothing failed -- convert object to user
-        if (!ret.equals("Failed"))
+        if (!ret.equals("Failed") && !ret.equals("ServerFailed")) {
             currentUser = toUser(ret);
+        }
+        else if (ret.equals("ServerFailed")) {
+            Toast.makeText(this, "Server failed to connect. Please try again later", Toast.LENGTH_LONG).show();
+            SharedPreferences settings = getSharedPreferences("currentUser", Context.MODE_PRIVATE);
+            settings.edit().clear().apply();
+            Intent intent = new Intent(RequestsPage.this, MainActivity.class);
+            startActivity(intent);
+        }
         else {
             Toast.makeText(this, "Error ocuured during a try to connect. Please try again later", Toast.LENGTH_LONG).show();
             SharedPreferences settings = getSharedPreferences("currentUser", Context.MODE_PRIVATE);
@@ -143,8 +151,16 @@ public class RequestsPage extends AppCompatActivity {
 
                 else {
                     String update = updateTo.toString();
-                    if (!dbInteract("updateband " + lastRequestSelected.getBandToJoin().toString() + " " + update).equals("Failed")) {
-                        if (!dbInteract("requestremove " + lastRequestSelected.getRequester().toString() + " " + lastRequestSelected.getBandToJoin().toString()).equals("Failed")) {
+                    String update_band = dbInteract("updateband " + lastRequestSelected.getBandToJoin().toString() + " " + update);
+                    if (update_band.equals("ServerFailed")) {
+                        Toast.makeText(this, "Server failed to connect. Please try again later", Toast.LENGTH_LONG).show();
+                    }
+                    else if (!update_band.equals("Failed")) {
+                        String request_remove = dbInteract("requestremove " + lastRequestSelected.getRequester().toString() + " " + lastRequestSelected.getBandToJoin().toString());
+                        if (request_remove.equals("ServerFailed")) {
+                            Toast.makeText(this, "Server failed to connect. Please try again later", Toast.LENGTH_LONG).show();
+                        }
+                        else if (!request_remove.equals("Failed")) {
                             // delete request from listview (adapter)
                             requestAdapter.remove(lastRequestSelected);
                             requestAdapter.notifyDataSetChanged();
@@ -168,7 +184,11 @@ public class RequestsPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // delete request from db
-                if (!dbInteract("requestremove " + lastRequestSelected.getRequester().toString() + " " + lastRequestSelected.getBandToJoin().toString()).equals("Failed")) {
+                String request_remove = dbInteract("requestremove " + lastRequestSelected.getRequester().toString() + " " + lastRequestSelected.getBandToJoin().toString());
+                if (request_remove.equals("ServerFailed")) {
+                    Toast.makeText(this, "Server failed to connect. Please try again later", Toast.LENGTH_LONG).show();
+                }
+                else if (!request_remove.equals("Failed")) {
                     // delete request from listview (adapter)
                     requestAdapter.remove(lastRequestSelected);
                     requestAdapter.notifyDataSetChanged();

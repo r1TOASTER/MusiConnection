@@ -74,14 +74,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 else {
                     String isUser = dbInteract("searchmail users " + mailStr);
 
-
-                    if (isUser.equals("Failed")){
+                    if (isUser.equals("ServerFailed")) {
+                        Toast.makeText(this, "Server failed to connect. Please try again later", Toast.LENGTH_LONG).show();
+                    }
+                    else if (isUser.equals("Failed")){
                         Toast.makeText(this, "No such user, please register", Toast.LENGTH_LONG).show();
                     }
                     else {
                         String isPassword = dbInteract("searchpassword users " + passwordStr);
-
-                        if (isPassword.equals("Failed")){
+                        if (isPassword.equals("ServerFailed")) {
+                            Toast.makeText(this, "Server failed to connect. Please try again later", Toast.LENGTH_LONG).show();
+                        }
+                        else if (isPassword.equals("Failed")){
                             Toast.makeText(this, "Please enter the correct password, or press on the forgot password button", Toast.LENGTH_LONG).show();
                         }
                         else {

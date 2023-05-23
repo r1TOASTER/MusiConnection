@@ -42,7 +42,18 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
             radius = 10;
         }
 
-        currentUser = toUser(dbInteract("searchmail users " + currentUserMail));
+        String maybe_user = dbInteract("searchmail users " + currentUserMail);
+        if (!maybe_user.equals("ServerFailed") && !maybe_user.equals("Failed")) {
+            currentUser = toUser(maybe_user);
+        }
+        else if (maybe_user.equals("ServerFailed")) { // if server fails, return to last screen
+            Toast.makeText(this, "Server failed to connect. Please try again later", Toast.LENGTH_LONG).show();
+            finish();
+        }
+        else {
+            Toast.makeText(this, "Something failed. Please try again later", Toast.LENGTH_LONG).show();
+            finish();
+        }
 
         saveNew = findViewById(R.id.saveEditAccount);
         goBack = findViewById(R.id.goBackButton);
@@ -126,16 +137,26 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
             }
             else {
                 if (!newMail.getText().toString().equals("")) {
-                    if (dbInteract("searchmail users " + newMail.getText().toString()).equals("Failed")) {
+                    String user_from_mail = dbInteract("searchmail users " + newMail.getText().toString());
+                    if (user_from_mail.equals("ServerFailed")) {
+                        Toast.makeText(this, "Server failed to connect. Please try again later", Toast.LENGTH_LONG).show();
+                        finish();
+                    }
+                    else if (user_from_mail.equals("Failed")) {
                         saveTo.setMail(newMail.getText().toString());
 
                         if (!newPassword.getText().toString().equals(""))
                             saveTo.setPassword(newPassword.getText().toString());
 
-                        if (!newUsername.getText().toString().equals(""))
+                        if (!newUsername.getText().toString().equals("")) {
                             saveTo.setName(newUsername.getText().toString());
-
-                        if (!dbInteract("update users " + currentUser.toString() + "," + saveTo.toString()).equals("Failed")){
+                        }
+                        String updated_user = dbInteract("update users " + currentUser.toString() + "," + saveTo.toString());
+                        if (updated_user.equals("ServerFailed")) {
+                            Toast.makeText(this, "Server failed to connect. Please try again later", Toast.LENGTH_LONG).show();
+                            finish();
+                        }
+                        else if (!updated_user.equals("Failed")){
 
                             SharedPreferences sharedPreferences = getSharedPreferences("currentUser",MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -187,7 +208,12 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
                         }
                     }
 
-                    if (!dbInteract("update users " + currentUser.toString() + "," + saveTo.toString()).equals("Failed")){
+                    String update_user = dbInteract("update users " + currentUser.toString() + "," + saveTo.toString());
+                    if (update_user.equals("ServerFailed")) {
+                        Toast.makeText(this, "Server failed to connect. Please try again later", Toast.LENGTH_LONG).show();
+                        finish();
+                    }
+                    else if (!update_user.equals("Failed")){
                         Toast.makeText(this, "User details updated successfully", Toast.LENGTH_LONG).show();
                         finish();
                     }

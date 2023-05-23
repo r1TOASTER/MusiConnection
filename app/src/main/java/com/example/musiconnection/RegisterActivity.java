@@ -85,15 +85,24 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     Toast.makeText(this, "Please Enter a Password With Nothing But Digits and Letters", Toast.LENGTH_LONG).show();
                 }
                 else {
-                    if (dbInteract("searchmail users " + mailStr).equals("Failed")) { 
+                    String search_mail = dbInteract("searchmail users " + mailStr);
+                    if (search_mail.equals("Failed")) { 
                         // There is no such mail in user - can register
 
                         user.setName(usernameStr);
                         user.setMail(mailStr);
                         user.setPassword(passwordStr);
                         //create new user and add him to the data base
-                        dbInteract("add users " + user.toString());
-
+                        String add_user = dbInteract("add users " + user.toString());
+                        if (add_user.equals("ServerFailed")) {
+                            Toast.makeText(this, "Server failed to connect. Please try again later", Toast.LENGTH_LONG).show();
+                            break;
+                        }
+                        else if (add_user.equals("Failed")) {
+                            Toast.makeText(this, "Something failed while trying to add a user. Please try again later", Toast.LENGTH_LONG).show();
+                            break; 
+                        }
+                        
                         // Storing data into SharedPreferences
                         SharedPreferences sharedPreferences = getSharedPreferences("currentUser",MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -102,6 +111,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
                         Intent intent = new Intent(RegisterActivity.this, MainScreenApp.class);
                         startActivity(intent);
+                    }
+                    else if (search_mail.equals("ServerFailed")) {
+                        Toast.makeText(this, "Server failed to connect. Please try again later", Toast.LENGTH_LONG).show();
                     }
                     else {
                         Toast.makeText(this, "This mail is already in use", Toast.LENGTH_LONG).show();

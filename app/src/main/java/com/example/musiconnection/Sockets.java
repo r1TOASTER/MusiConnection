@@ -37,7 +37,7 @@ public class Sockets extends AsyncTask<String, Void, String>
         } catch (IOException e) {
             e.printStackTrace();
             Log.e("Error", "Error while trying to access the server");
-            return "Failed";
+            return "ServerFailed";
         }
 
         String message = arrMessages[0];

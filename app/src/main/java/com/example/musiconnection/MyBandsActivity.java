@@ -71,8 +71,22 @@ public class MyBandsActivity extends AppCompatActivity implements View.OnClickLi
         String ret = dbInteract("searchmail users " + currentUserMail);
 
         //if nothing failed -- convert object to user
-        if (!ret.equals("Failed")) {
+        if (ret.equals("ServerFailed")) {
+            Toast.makeText(this, "Server failed to connect. Please try again later", Toast.LENGTH_LONG).show();
+            SharedPreferences settings = getSharedPreferences("currentUser", Context.MODE_PRIVATE);
+            settings.edit().clear().apply();
+            Intent intent1 = new Intent(MainScreenApp.this, MainActivity.class);
+            startActivity(intent1);
+        }
+        else if (!ret.equals("Failed")) {
             currentUser = toUser(ret);
+        }
+        else {
+            Toast.makeText(this, "Error ocuured during a try to connect. Please try again later", Toast.LENGTH_LONG).show();
+            SharedPreferences settings = getSharedPreferences("currentUser", Context.MODE_PRIVATE);
+            settings.edit().clear().apply();
+            Intent intent2 = new Intent(MainScreenApp.this, MainActivity.class);
+            startActivity(intent2);
         }
 
         addBand = (Button) findViewById(R.id.addMyBand);
@@ -231,7 +245,13 @@ public class MyBandsActivity extends AppCompatActivity implements View.OnClickLi
             // if removing a band
             bandAdapter.remove(lastBandSelected);
             bandAdapter.notifyDataSetChanged();
-            dbInteract("remove bands " + lastBandSelected);
+            String remove_bands = dbInteract("remove bands " + lastBandSelected);
+            if (remove_bands.equals("ServerFailed")) {
+                Toast.makeText(this, "Server failed to connect. Please try again later", Toast.LENGTH_LONG).show();
+            }
+            else if (remove_bands.equals("Failed")) {
+                Toast.makeText(this, "Error ocuured during a try to remove band. Please try again later", Toast.LENGTH_LONG).show();
+            }
             deleteDialog.dismiss();
         } else if (view == cancelDeleteBand) {
             // if dismissing the dialog
@@ -258,8 +278,12 @@ public class MyBandsActivity extends AppCompatActivity implements View.OnClickLi
                 for (int i = 0; i < membersList.size(); ++i) {
                     newBandAdd.addMember(membersList.get(i));
                 }
-
-                if (dbInteract("add bands " + newBandAdd).equals("Failed")) {
+                
+                String add_bands = dbInteract("add bands " + newBandAdd);
+                if (add_bands.equals("ServerFailed")) {
+                    Toast.makeText(this, "Server failed to connect. Please try again later", Toast.LENGTH_LONG).show();
+                }
+                else if (add_bands.equals("Failed")) {
                     Toast.makeText(MyBandsActivity.this, "Failed to add Band", Toast.LENGTH_LONG).show();
                 } else {
                     bandAdapter.add(newBandAdd);
@@ -272,7 +296,11 @@ public class MyBandsActivity extends AppCompatActivity implements View.OnClickLi
             addBandDialog.dismiss();
         } else if (view == resignYourself) {
             // if removing yourself from the band (user)
-            if (!dbInteract("removemember " + currentUser + " " + lastBandSelected).equals("Failed")) {
+            String remove_member = dbInteract("removemember " + currentUser + " " + lastBandSelected);
+            if (remove_member.equals("ServerFailed")) {
+                Toast.makeText(this, "Server failed to connect. Please try again later", Toast.LENGTH_LONG).show();
+            }
+            else if (!remove_member.equals("Failed")) {
                 bandAdapter.remove(lastBandSelected);
                 bandAdapter.notifyDataSetChanged();
             } else {
@@ -397,7 +425,11 @@ public class MyBandsActivity extends AppCompatActivity implements View.OnClickLi
                     }
                 }
 
-                if (!dbInteract("updateband " + lastBandSelected.toString() + " " + newBand.toString()).equals("Failed")) {
+                String update_band = dbInteract("updateband " + lastBandSelected.toString() + " " + newBand.toString());
+                if (update_band.equals("ServerFailed")) {
+                    Toast.makeText(this, "Server failed to connect. Please try again later", Toast.LENGTH_LONG).show();
+                }
+                else if (!update_band.equals("Failed")) {
                     bandAdapter.remove(lastBandSelected);
                     bandAdapter.add(newBand);
                     bandAdapter.notifyDataSetChanged();
@@ -514,7 +546,10 @@ public class MyBandsActivity extends AppCompatActivity implements View.OnClickLi
             public void onClick(View v) {
                 // if there is such user, using that mail, and checking that the user is not the owner, already in the band or the band is full already, then adding him
                 String ret = dbInteract("searchmail users " + newMemberMailSearchEdit.getText().toString());
-                if (!ret.equals("Failed")){
+                if (ret.equals("ServerFailed")) {
+                    Toast.makeText(this, "Server failed to connect. Please try again later", Toast.LENGTH_LONG).show();
+                }
+                else if (!ret.equals("Failed")){
                     User newMember = toUser(ret);
                     if (newMember.getMail().equals(currentUserMail)){
                         Toast.makeText(MyBandsActivity.this, "You can't add yourself to the band", Toast.LENGTH_LONG).show();
@@ -617,7 +652,10 @@ public class MyBandsActivity extends AppCompatActivity implements View.OnClickLi
                 if (v == addSingleMemberButtonAndSave){
                     // if there is such user, using that mail, and checking that the user is not the owner, already in the band or the band is full already, then adding him
                     String ret = dbInteract("searchmail users " + memberMail.getText().toString());
-                    if (!ret.equals("Failed")){
+                    if (ret.equals("ServerFailed")) {
+                        Toast.makeText(this, "Server failed to connect. Please try again later", Toast.LENGTH_LONG).show();
+                    }
+                    else if (!ret.equals("Failed")){
                         User newMember = toUser(ret);
                         if (newMember.getMail().equals(currentUserMail)){
                             Toast.makeText(MyBandsActivity.this, "You can't add yourself to the band", Toast.LENGTH_LONG).show();

@@ -41,10 +41,17 @@ public class ForgotPassword extends AppCompatActivity implements View.OnClickLis
         }
         else if (view == submit){
             String response = dbInteract("searchmail users " + mail.getText().toString());
-            if (!response.equals("Failed")) {
+            if (response.equals("ServerFailed")) {
+                Toast.makeText(this, "Server failed to connect. Please try again later", Toast.LENGTH_LONG).show();
+            }
+            else if (!response.equals("Failed")) {
                 //there is a user using that mail
                 User user = toUser(response);
-                if (dbInteract("sendforgotpassword " + user.getMail() + " " + user.getPassword()).equals("Sent")) {
+                String sent_forgotten_password = dbInteract("sendforgotpassword " + user.getMail() + " " + user.getPassword());
+                if (sent_forgotten_password.equals("ServerFailed")) {
+                    Toast.makeText(this, "Server failed to connect. Please try again later", Toast.LENGTH_LONG).show();
+                }
+                else if (sent_forgotten_password.equals("Sent")) {
                     Toast.makeText(this, "A mail had been sent to this user's mail containing it's password", Toast.LENGTH_LONG).show();
                 }
                 else {

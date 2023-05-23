@@ -30,7 +30,17 @@ public class SettingActivirty extends AppCompatActivity implements View.OnClickL
 
         SharedPreferences sh = getSharedPreferences("currentUser", MODE_PRIVATE);
         String currentUserMail = sh.getString("UserMail", "");
-        currentUser = toUser(dbInteract("searchmail users " + currentUserMail));
+
+        String search_mail = dbInteract("searchmail users " + currentUserMail);
+        if (search_mail.equals("ServerFailed")) {
+            Toast.makeText(this, "Server failed to connect. Please try again later", Toast.LENGTH_LONG).show();
+            finish();
+        }
+        else if (search_mail.equals("Failed")) { // no such user
+            Toast.makeText(this, "Error when trying to get the user. Please try again later", Toast.LENGTH_LONG).show();
+            finish();
+        }
+        currentUser = toUser(search_mail);
 
         forgotPassword = findViewById(R.id.forgotPasswordButton);
         logOut = findViewById(R.id.logOutButton);
@@ -58,15 +68,33 @@ public class SettingActivirty extends AppCompatActivity implements View.OnClickL
             // if the user clicked on the delete account button
             if (currentUser != null) {
                 String currentUserString = currentUser.toString();
-                if (!dbInteract("remove users " + currentUserString).equals("Failed")){
-                    if (!dbInteract("removebandsof bands " + currentUserString).equals("Failed")) {
-                        if (!dbInteract("removeAllRequests requests " + currentUserString).equals("Failed")) {
+                String remove_user = dbInteract("remove users " + currentUserString);
+                if (remove_user.equals("ServerFailed")) {
+                    Toast.makeText(this, "Server failed to connect. Please try again later", Toast.LENGTH_LONG).show();
+                }
+                else if (!remove_user.equals("Failed")){
+                    String remove_bands_of = dbInteract("removebandsof bands " + currentUserString);
+                    if (remove_bands_of.equals("ServerFailed")) {
+                        Toast.makeText(this, "Server failed to connect. Please try again later", Toast.LENGTH_LONG).show();
+                    }
+                    else if (!remove_bands_of.equals("Failed")) {
+                        String remove_all_requests = dbInteract("removeAllRequests requests " + currentUserString);
+                        if (remove_all_requests.equals("ServerFailed")) {
+                            Toast.makeText(this, "Server failed to connect. Please try again later", Toast.LENGTH_LONG).show();
+                        }
+                        else if (!remove_all_requests.equals("Failed")) {
                             SharedPreferences settings = getSharedPreferences("currentUser", Context.MODE_PRIVATE);
                             settings.edit().clear().apply();
                             Toast.makeText(this, "Account deleted successfully", Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(SettingActivirty.this, MainActivity.class);
                             startActivity(intent);
                         }
+                        else {
+                            Toast.makeText(this, "Failed to remove the user's requests. Please try again later", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                    else {
+                        Toast.makeText(this, "Failed to remove the user's bands / the user as a member of bands. Please try again later", Toast.LENGTH_LONG).show();
                     }
                 }
                 else {
