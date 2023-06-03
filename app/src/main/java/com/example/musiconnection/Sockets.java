@@ -1,6 +1,7 @@
 package com.example.musiconnection;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -16,7 +17,7 @@ import java.nio.charset.StandardCharsets;
 // This class is responsible for creating a connection between the Client side (this) and the Server side using sockets.
 public class Sockets extends AsyncTask<String, Void, String>
 {
-    private final String IP = "172.19.14.150";
+    private final String IP = "172.19.6.91";
     private final int PORT = 5556;
     private final int TIME_OUT = 10500;
 

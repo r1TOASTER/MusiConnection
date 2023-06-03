@@ -333,7 +333,7 @@ public class MyBandsActivity extends AppCompatActivity implements View.OnClickLi
 
         if (!Places.isInitialized())
         {
-            Places.initialize(getApplicationContext(), "AIzaSyCWC0KQOMN8G2sjagLGyNGpvxYG9JfDAYk");
+            Places.initialize(getApplicationContext(), "AIzaSyAHFZY7OSA-6sGc5p2IBB8rtIcaV-i0m1g");
         }
 
         // setting the band's information
@@ -733,7 +733,7 @@ public class MyBandsActivity extends AppCompatActivity implements View.OnClickLi
 
         if (!Places.isInitialized())
         {
-            Places.initialize(getApplicationContext(), "AIzaSyCWC0KQOMN8G2sjagLGyNGpvxYG9JfDAYk");
+            Places.initialize(getApplicationContext(), "AIzaSyAHFZY7OSA-6sGc5p2IBB8rtIcaV-i0m1g");
         }
 
         addBandDialog.setTitle("Add A New Band");
