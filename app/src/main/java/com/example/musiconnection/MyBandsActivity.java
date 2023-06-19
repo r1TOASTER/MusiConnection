@@ -333,7 +333,7 @@ public class MyBandsActivity extends AppCompatActivity implements View.OnClickLi
 
         if (!Places.isInitialized())
         {
-            Places.initialize(getApplicationContext(), "AIzaSyAHFZY7OSA-6sGc5p2IBB8rtIcaV-i0m1g");
+            Places.initialize(getApplicationContext(), "YOUR_GOOGLE_MAPS_API_KEY_GOES_HERE");
         }
 
         // setting the band's information
